@@ -1,11 +1,11 @@
 import { AuthSchema } from "./auth.schema";
 
-export const AuthService = {
+export class AuthService {
   signin(dto: AuthSchema) {
     //some bussiness logic
-  },
+  }
 
-  signup(dto: AuthSchema) {},
+  signup(dto: AuthSchema) {}
 
-  logout() {},
-};
+  logout() {}
+}

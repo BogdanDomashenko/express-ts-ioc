@@ -4,7 +4,8 @@ import dotenv from "dotenv";
 import logger from "morgan";
 import cookieParser from "cookie-parser";
 import "module-alias/register";
-
+import { setup } from "./di-setup";
+setup();
 import indexRouter from "./src/modules";
 import { exceptionMiddleware } from "./lib";
 

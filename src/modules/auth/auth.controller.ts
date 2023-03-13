@@ -3,24 +3,35 @@ import { asyncHandler } from "@lib";
 import { AuthSchema } from "./auth.schema";
 import { AuthService } from "./auth.service";
 
-export const signin = asyncHandler(async (req, res) => {
-  const dto: AuthSchema = req.body;
+interface ConstructorParams {
+  authService: AuthService;
+}
 
-  AuthService.signin(dto);
+export class AuthController {
+  authService: AuthService;
 
-  res.json({ message: "signin" });
-});
+  constructor({ authService }: ConstructorParams) {
+    this.authService = authService;
+  }
 
-export const signup = asyncHandler(async (req: Request, res: Response) => {
-  const dto: AuthSchema = req.body;
+  signin = asyncHandler(async (req, res) => {
+    const dto: AuthSchema = req.body;
+    this.authService.signin(dto);
 
-  AuthService.signup(dto);
+    res.json({ message: "signin" });
+  });
 
-  res.json({ message: "signup" });
-});
+  signup = asyncHandler(async (req: Request, res: Response) => {
+    const dto: AuthSchema = req.body;
 
-export const logout = asyncHandler(async (req: Request, res: Response) => {
-  AuthService.logout();
+    this.authService.signup(dto);
 
-  res.json({ message: "logout" });
-});
+    res.json({ message: "signup" });
+  });
+
+  logout = asyncHandler(async (req: Request, res: Response) => {
+    this.authService.logout();
+
+    res.json({ message: "logout" });
+  });
+}
